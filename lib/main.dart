@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './welcome.dart';
+import './report.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Welcome(),
+        '/report': (context) => Report()
       },
     );
   }
