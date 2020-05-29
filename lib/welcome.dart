@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -13,7 +14,7 @@ class Welcome extends StatelessWidget {
           body: Column(
             children: <Widget>[
               SizedBox(
-                height: 80,
+                height: ( size.height / 10 ) * 1 ,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -25,7 +26,7 @@ class Welcome extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 100,
+                height: (size.height / 10) * 1,
               ),
               Row(
                 children: <Widget>[
@@ -60,13 +61,13 @@ class Welcome extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 50,
+                height: (size.height / 10) * 1,
               ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(width: 200,),
+                  SizedBox(width: size.width * 2/5,),
                   Material(
                     elevation: 2,
                     color: Colors.orangeAccent,
@@ -84,7 +85,7 @@ class Welcome extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: (size.height / 10) * 0.5,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
