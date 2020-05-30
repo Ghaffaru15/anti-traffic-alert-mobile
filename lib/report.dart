@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:mime_type/mime_type.dart';
+
 //
 //import 'package:flutter_uploader/flutter_uploader.dart';
 
@@ -18,7 +19,9 @@ class _ReportState extends State<Report> {
   String phoneNumber;
   String location;
   String description;
-  File file;
+  File fileToSubmit;
+
+  String fileEmpty;
 
   Future showUploadError() async {
     showDialog(
@@ -63,27 +66,48 @@ class _ReportState extends State<Report> {
           );
         });
   }
-  void onFileUploadPressed() async {
-    File file = await FilePicker.getFile();
 
-    if (file.existsSync()) {
+  void validateFile(File file) {
+    if (file != null) {
+      setState(() {
+        fileEmpty = '';
+      });
       String mimetype = mime(file.path);
       print(mimetype);
       List mimeArray = mimetype.split('/');
-      if (mimeArray[0] != 'image' &&
-          mimeArray[0] != 'video') {
+      if (mimeArray[0] != 'image' && mimeArray[0] != 'video') {
         showUploadError();
         print('Invalid File Type, Please Upload an image or video');
-      } else if (file.lengthSync() > 100) {
-          showFileSizeError();
+      } else if (file.lengthSync() > 100000) {
+        showFileSizeError();
+      } else {
+        setState(() {
+          fileToSubmit = file;
+        });
       }
-
+    } else {
+      print('No file uploaded');
+      setState(() {
+        fileEmpty = 'Please upload an image/video';
+      });
     }
   }
 
-  submitData() async {
-    onFileUploadPressed();
+  void onFileUploadPressed() async {
+    File file = await FilePicker.getFile();
+
+    validateFile(file);
   }
+
+  submitData() async {
+    if (fileToSubmit != null) {
+      print('Exist');
+    } else {
+      print('No file');
+    }
+    validateFile(fileToSubmit);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -126,7 +150,6 @@ class _ReportState extends State<Report> {
                     TextFormField(
                       style: TextStyle(color: Colors.blue),
                       decoration: InputDecoration(
-
                           labelText: 'Name (Optional)',
                           labelStyle: TextStyle(color: Colors.orangeAccent)),
                     ),
@@ -136,7 +159,6 @@ class _ReportState extends State<Report> {
                     TextFormField(
                       style: TextStyle(color: Colors.blue),
                       decoration: InputDecoration(
-
                           labelText: 'Email (Optional)',
                           labelStyle: TextStyle(color: Colors.orangeAccent)),
                     ),
@@ -179,7 +201,6 @@ class _ReportState extends State<Report> {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 8),
                           child: Material(
-
                             elevation: 2.0,
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
@@ -206,10 +227,15 @@ class _ReportState extends State<Report> {
 //                        )
                       ],
                     ),
+                    fileEmpty != null
+                        ? Text(
+                            fileEmpty,
+                            style: TextStyle(color: Colors.red),
+                          )
+                        : Text(''),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 16),
                       child: Material(
-
                         elevation: 4.0,
                         color: Colors.orangeAccent,
                         borderRadius: BorderRadius.circular(20),
