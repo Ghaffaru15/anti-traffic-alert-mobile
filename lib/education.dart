@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class Education extends StatelessWidget {
+
+  Future<void> sendMail() async {
+    final Email email = Email(
+      body: '',
+      subject: 'Anti Traffic Alert',
+      recipients: ['ghaffaru@abeyiestudios.com'],
+//      cc: ['cc@example.com'],
+//      bcc: ['bcc@example.com'],
+//      attachmentPath: ['/path/to/attachment.zip'],
+      isHTML: false,
+    );
+
+    String platformResponse;
+
+    try {
+      await FlutterEmailSender.send(email);
+      platformResponse = 'success';
+    } catch (error) {
+      platformResponse = error.toString();
+      print(platformResponse);
+    }
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,6 +142,7 @@ class Education extends StatelessWidget {
               color: Colors.orangeAccent,
               borderRadius: BorderRadius.circular(20),
               child: MaterialButton(
+                onPressed: sendMail,
                 minWidth: 100,
                 height: 42,
                 child: Text(

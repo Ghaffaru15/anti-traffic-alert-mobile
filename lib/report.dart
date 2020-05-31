@@ -237,6 +237,13 @@ class _ReportState extends State<Report> {
       appBar: AppBar(
         backgroundColor: Colors.orangeAccent,
         title: Text('Report Case'),
+        actions: <Widget>[
+          IconButton(
+
+            icon: Icon(Icons.arrow_forward,
+              color: Colors.white,),
+          )
+        ],
       ),
       backgroundColor: Colors.white,
       body: ModalProgressHUD(inAsyncCall: showSpinner,
@@ -416,19 +423,19 @@ class _ReportState extends State<Report> {
                           ),
                         ),
 
-                        IconButton(
-                          padding: EdgeInsets.only(left: 270),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/education');
-                          },
-                          alignment: Alignment.bottomRight,
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.orangeAccent,
-                          ),
-                          iconSize: 50,
-                          color: Colors.white,
-                        ),
+//                        IconButton(
+//                          padding: EdgeInsets.only(left: 270),
+//                          onPressed: () {
+//                            Navigator.pushNamed(context, '/education');
+//                          },
+//                          alignment: Alignment.bottomRight,
+//                          icon: Icon(
+//                            Icons.arrow_forward_ios,
+//                            color: Colors.orangeAccent,
+//                          ),
+//                          iconSize: 40,
+//                          color: Colors.white,
+//                        ),
                       ],
                     ),
                   ))
