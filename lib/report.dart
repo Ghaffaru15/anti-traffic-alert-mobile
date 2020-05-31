@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:http/http.dart' as http;
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+
 //
 //import 'package:flutter_uploader/flutter_uploader.dart';
 
@@ -120,8 +121,8 @@ class _ReportState extends State<Report> {
           );
         });
   }
-  File validateFile(File file) {
 
+  File validateFile(File file) {
     if (file != null) {
       setState(() {
         fileEmpty = '';
@@ -136,10 +137,8 @@ class _ReportState extends State<Report> {
         showFileSizeError();
       } else {
         setState(() {
-
           fileToSubmit = file;
           fileName = file.path.split('/').last;
-
         });
       }
     } else {
@@ -169,10 +168,11 @@ class _ReportState extends State<Report> {
       setState(() {
         showSpinner = true;
       });
-      final request = http.MultipartRequest('POST',
-      Uri.parse('http://10.0.2.2:8000/api/report'));
+      final request = http.MultipartRequest(
+          'POST', Uri.parse('http://10.0.2.2:8000/api/report'));
 
-      final finalFile = await http.MultipartFile.fromPath('media_url', fileToSubmit.path);
+      final finalFile =
+          await http.MultipartFile.fromPath('media_url', fileToSubmit.path);
 
       request.files.add(finalFile);
 
@@ -180,8 +180,8 @@ class _ReportState extends State<Report> {
         'name': name,
         'email': email,
         'phone_number': phoneNumber,
-        'location' : location,
-        'description' : description
+        'location': location,
+        'description': description
       });
 
       var streamedResponse = await request.send();
@@ -234,19 +234,24 @@ class _ReportState extends State<Report> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orangeAccent,
-        title: Text('Report Case'),
-        actions: <Widget>[
-          IconButton(
-
-            icon: Icon(Icons.arrow_forward,
-              color: Colors.white,),
-          )
-        ],
-      ),
-      backgroundColor: Colors.white,
-      body: ModalProgressHUD(inAsyncCall: showSpinner,
+        appBar: AppBar(
+          backgroundColor: Colors.orangeAccent,
+          title: Text('Report Case'),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/education');
+              },
+              icon: Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+        backgroundColor: Colors.white,
+        body: ModalProgressHUD(
+          inAsyncCall: showSpinner,
           child: ListView(
             children: <Widget>[
 //          SizedBox(
@@ -287,7 +292,8 @@ class _ReportState extends State<Report> {
                           style: TextStyle(color: Colors.blue),
                           decoration: InputDecoration(
                               labelText: 'Name (Optional)',
-                              labelStyle: TextStyle(color: Colors.orangeAccent)),
+                              labelStyle:
+                                  TextStyle(color: Colors.orangeAccent)),
                         ),
                         SizedBox(
                           height: size.height * 0.01,
@@ -302,7 +308,8 @@ class _ReportState extends State<Report> {
                           style: TextStyle(color: Colors.blue),
                           decoration: InputDecoration(
                               labelText: 'Email (Optional)',
-                              labelStyle: TextStyle(color: Colors.orangeAccent)),
+                              labelStyle:
+                                  TextStyle(color: Colors.orangeAccent)),
                         ),
                         SizedBox(
                           height: size.height * 0.01,
@@ -317,7 +324,8 @@ class _ReportState extends State<Report> {
                           style: TextStyle(color: Colors.blue),
                           decoration: InputDecoration(
                               labelText: 'Phone Number (Optional)',
-                              labelStyle: TextStyle(color: Colors.orangeAccent)),
+                              labelStyle:
+                                  TextStyle(color: Colors.orangeAccent)),
                         ),
                         SizedBox(
                           height: size.height * 0.01,
@@ -332,7 +340,8 @@ class _ReportState extends State<Report> {
                           style: TextStyle(color: Colors.blue),
                           decoration: InputDecoration(
                               labelText: 'Location (Optional)',
-                              labelStyle: TextStyle(color: Colors.orangeAccent)),
+                              labelStyle:
+                                  TextStyle(color: Colors.orangeAccent)),
                         ),
                         SizedBox(
                           height: size.height * 0.01,
@@ -348,7 +357,6 @@ class _ReportState extends State<Report> {
                             if (description.isEmpty) {
                               return 'The description field is required';
                             }
-
                           },
                           style: TextStyle(color: Colors.blue),
                           maxLines: 4,
@@ -376,7 +384,8 @@ class _ReportState extends State<Report> {
                                   height: 10,
                                   child: Text(
                                     'Upload Image/Video',
-                                    style: TextStyle(color: Colors.orangeAccent),
+                                    style:
+                                        TextStyle(color: Colors.orangeAccent),
                                   ),
                                 ),
                               ),
@@ -396,15 +405,17 @@ class _ReportState extends State<Report> {
                         ),
                         fileEmpty != null
                             ? Text(
-                          fileEmpty,
-                          style: TextStyle(color: Colors.red),
-                        )
+                                fileEmpty,
+                                style: TextStyle(color: Colors.red),
+                              )
                             : Text(''),
 
-                        fileName != null ?
-                        Text(fileName,
-                          style: TextStyle(color: Colors.orangeAccent),
-                        ) : Text(''),
+                        fileName != null
+                            ? Text(
+                                fileName,
+                                style: TextStyle(color: Colors.orangeAccent),
+                              )
+                            : Text(''),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 16),
                           child: Material(
@@ -440,7 +451,7 @@ class _ReportState extends State<Report> {
                     ),
                   ))
             ],
-          ),)
-    );
+          ),
+        ));
   }
 }
