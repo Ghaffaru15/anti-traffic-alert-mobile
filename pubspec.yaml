@@ -29,6 +29,7 @@ dependencies:
   mime_type: ^0.3.0
   flutter_email_sender: ^2.0.2
   splashscreen: ^1.2.0
+  font_awesome_flutter: ^8.6.0
 #  url_launcher: ^5.1.4
 dev_dependencies:
   flutter_test:
@@ -53,8 +54,10 @@ flutter:
      - images/file_music-upload-512.png
      - images/images.png
      - images/globe.png
-
-
+     - images/instagram icon.png
+     - images/linkedin icon.png
+     - ta_logo_final.png
+     - images/file_upload.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
