@@ -8,7 +8,8 @@ import 'suspicious.dart';
 import 'facts.dart';
 import 'about.dart';
 import 'aboutus.dart';
-
+import 'report_sent.dart';
+import 'first.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
 
       initialRoute: '/splash',
       routes: {
-        '/': (context) => Welcome(),
+//        '/': (context) => Welcome(),
+        '/': (context) => First(),
         '/splash' : (context) => Splash(),
         '/report': (context) => Report(),
         '/education': (context) => Education(),
@@ -29,7 +31,8 @@ class MyApp extends StatelessWidget {
         '/suspicious': (context) => Suspicious(),
         '/fact' : (context) => Fact(),
         '/about' : (context) => About(),
-        '/aboutus' : (context) => AboutUs()
+        '/aboutus' : (context) => AboutUs(),
+        '/report_sent': (context) => ReportSent(),
       },
     );
   }

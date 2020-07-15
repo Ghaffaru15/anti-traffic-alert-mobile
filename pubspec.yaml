@@ -1,4 +1,4 @@
-name: anti_traffic_alert
+name: traffik_alert
 description: Saving lives by reducing social harassment
 
 # The following defines the version and build number for your application.
@@ -30,11 +30,17 @@ dependencies:
   flutter_email_sender: ^2.0.2
   splashscreen: ^1.2.0
   font_awesome_flutter: ^8.6.0
-#  url_launcher: ^5.1.4
+  url_launcher: ^5.4.11
+  flutter_launcher_icons: ^0.7.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/ta_logo_final.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

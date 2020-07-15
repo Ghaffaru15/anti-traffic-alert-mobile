@@ -232,8 +232,8 @@ class _SuspiciousState extends State<Suspicious> {
         setState(() {
           showSpinner = false;
         });
-        showUploadSuccess();
-
+//        showUploadSuccess();
+        Navigator.pushNamed(context, '/report_sent');
         descriptionController.clear();
         setState(() {
           description = '';
@@ -265,6 +265,10 @@ class _SuspiciousState extends State<Suspicious> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double heightSize = size.height;
+    double widthSize = size.width;
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -292,27 +296,26 @@ class _SuspiciousState extends State<Suspicious> {
           inAsyncCall: showSpinner,
           child: ListView(
             children: <Widget>[
-              Image.asset('images/ta_logo_final.png', height: 150,),
+              Image.asset('images/ta_logo_final.png',height: (heightSize / 10) * 1.6,),
               Row(
                 children: <Widget>[
-                  SizedBox(width: 10,),
-                  Text(
-                    'Report a suspicious behavior ',
-                    style: TextStyle(color: Colors.black54, fontSize: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8, left: 8),
+                    child: Text(
+                      'Report a suspicious behavior ',
+                      style: TextStyle(color: Colors.black54, fontSize: 20),
+                    ),
                   ),
                   Icon(Icons.error),
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(children: <Widget>[
-                SizedBox(width: 10,),
-                Text('Describe what you have seen, heard or experienced'),
-              ],),
-              SizedBox(
-                height: 20,
-              ),
+
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, left: 8, bottom: 8),
+                  child: Text('Describe what you have seen, heard or experienced'),
+                ),
+
               Form(
 
                 key: formKey,
@@ -346,20 +349,21 @@ class _SuspiciousState extends State<Suspicious> {
                     ),
 
                     SizedBox(
-                      height: 20,
+                      height: (heightSize / 10) * 0.2,
                     ),
-                    Text(
-                        'Do you have a video, image or audio to attach ? Upload here'),
-                    SizedBox(
-                      height: 20,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: Text(
+                          'Do you have a video, image or audio to attach ? Upload here'),
                     ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
 //                    SizedBox(width: 20),
                         FlatButton(child: Image.asset(
                           'images/file_upload.png',
-                          height: 60,
+                          height: (heightSize / 10) * 0.8,
                         ),
                         onPressed: onFileUploadPressed,
                         )
@@ -379,7 +383,7 @@ class _SuspiciousState extends State<Suspicious> {
                     )
                         : Text(''),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: EdgeInsets.all(3),
                       child: Material(
                         elevation: 4.0,
                         color: Colors.white,
@@ -387,10 +391,10 @@ class _SuspiciousState extends State<Suspicious> {
                         child: MaterialButton(
                           onPressed: submitData,
                           minWidth: 200,
-                          height: 40,
+                          height: (heightSize / 10) * 0.3,
                           child: Text(
                             'SUBMIT',
-                            style: TextStyle(color: Colors.black, fontSize: 25),
+                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 25),
                           ),
                         ),
                       ),

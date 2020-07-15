@@ -1,12 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:url_launcher/url_launcher.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 //_launchURL(String url) {
 //  launch(url);
 //}
+_launchWebURL() async {
+  print('hit');
+  const url = 'https://abeyiestudios.com';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
+_launchFbURL() async {
+  print('hit');
+  const url = 'https://facebook.com/abeyieis';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+_launchTwitterURL() async {
+  print('hit');
+  const url = 'https://twitter.com/abeyieis';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+_launchIGURL() async {
+  print('hit');
+  const url = 'https://instagram.com/abeyieis';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+_launchYouTubeURL() async {
+  print('hit');
+  const url = 'https://youtube.com/abeyieis';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+_launchLinkedInURL() async {
+  print('hit');
+  const url = 'https://linkedin.com/company/abeyieinnovationstudios';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -42,37 +98,37 @@ class About extends StatelessWidget {
 
               // Use the FontAwesomeIcons class for the IconData
               icon: FaIcon(FontAwesomeIcons.globe),
-              onPressed: () {  }
+              onPressed: _launchWebURL
             ),
             SizedBox(height: 3,),
             IconButton(
 
           // Use the FontAwesomeIcons class for the IconData
                 icon: FaIcon(FontAwesomeIcons.facebook),
-                onPressed: () { print('Pressed'); }
+                onPressed: _launchFbURL
 
         ),
             SizedBox(height: 3,),
             IconButton(
               icon: FaIcon(FontAwesomeIcons.twitter),
-              onPressed: () {print('Pressed'); },
+              onPressed: _launchTwitterURL
             ),
             SizedBox(height: 3,),
             IconButton(
               icon: FaIcon(FontAwesomeIcons.instagram),
-              onPressed: () {print('Pressed'); },
+              onPressed: _launchIGURL
             ),
 
             SizedBox(height: 3,),
             IconButton(
               icon: FaIcon(FontAwesomeIcons.linkedin),
-              onPressed: () {print('Pressed'); },
+              onPressed: _launchLinkedInURL
             ),
 
             SizedBox(height: 3,),
             IconButton(
               icon: FaIcon(FontAwesomeIcons.youtube),
-              onPressed: () {print('Pressed'); },
+              onPressed: _launchYouTubeURL
             ),
 
             Row(

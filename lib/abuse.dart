@@ -4,13 +4,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'dart:io';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+
 class Abuse extends StatefulWidget {
   @override
   _AbuseState createState() => _AbuseState();
 }
 
 class _AbuseState extends State<Abuse> {
-
   final GlobalKey<FormState> formKey = GlobalKey();
 
   String description;
@@ -91,10 +91,17 @@ class _AbuseState extends State<Abuse> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Report Added'),
-            content: Text(
-              'Thank you for saving a life, your case has been recorded',
-              style: TextStyle(color: Colors.orangeAccent),
+            title: Text('Report Sent'),
+            content: Column(
+              children: <Widget>[
+                Text(
+                  'That took a lot of courage. To give more details, ',
+                  style: TextStyle(color: Colors.orangeAccent),
+                ),
+                FlatButton(
+                  child: Text('Fill the Form'),
+                )
+              ],
             ),
             actions: <Widget>[
               FlatButton(
@@ -139,7 +146,9 @@ class _AbuseState extends State<Abuse> {
       String mimetype = mime(file.path);
       print(mimetype);
       List mimeArray = mimetype.split('/');
-      if (mimeArray[0] != 'image' && mimeArray[0] != 'video' && mimeArray[0] != 'audio') {
+      if (mimeArray[0] != 'image' &&
+          mimeArray[0] != 'video' &&
+          mimeArray[0] != 'audio') {
         showUploadError();
         print('Invalid File Type, Please Upload an Image, Video or Audio');
       } else if (file.lengthSync() > 100000000) {
@@ -190,6 +199,7 @@ class _AbuseState extends State<Abuse> {
 
     return file;
   }
+
   void onFileUploadPressed() async {
     File file = await FilePicker.getFile();
 
@@ -201,6 +211,7 @@ class _AbuseState extends State<Abuse> {
 
     validateVideo(file);
   }
+
   submitData() async {
     if (!formKey.currentState.validate()) {
       print('Failed Validation');
@@ -211,17 +222,17 @@ class _AbuseState extends State<Abuse> {
       setState(() {
         showSpinner = true;
       });
-      final request = http.MultipartRequest(
-          'POST', Uri.parse('http://10.0.2.2:8000/api/report'));
+//      final request = http.MultipartRequest(
+//          'POST', Uri.parse('http://10.0.2.2:8000/api/report'));
 
+      final request = http.MultipartRequest(
+          'POST', Uri.parse('https://traffikalert.com/api/report'));
       final finalFile =
-      await http.MultipartFile.fromPath('media_url', fileToSubmit.path);
+          await http.MultipartFile.fromPath('media_url', fileToSubmit.path);
 
       request.files.add(finalFile);
 
-      request.fields.addAll({
-        'description': description
-      });
+      request.fields.addAll({'description': description});
 
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
@@ -230,8 +241,8 @@ class _AbuseState extends State<Abuse> {
         setState(() {
           showSpinner = false;
         });
-        showUploadSuccess();
-
+//        showUploadSuccess();
+        Navigator.pushNamed(context, '/report_sent');
         descriptionController.clear();
         setState(() {
           description = '';
@@ -249,7 +260,6 @@ class _AbuseState extends State<Abuse> {
 //        locationController.clear();
 //        descriptionController.clear();
         setState(() {
-
           description = '';
           fileToSubmit = null;
           fileName = '';
@@ -261,13 +271,15 @@ class _AbuseState extends State<Abuse> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double heightSize = size.height;
+    double widthSize = size.width;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
-
           ),
           backgroundColor: Colors.orangeAccent,
           title: Text('Report Abuse'),
@@ -289,37 +301,35 @@ class _AbuseState extends State<Abuse> {
           color: Colors.orangeAccent,
           child: ListView(
             children: <Widget>[
-              Image.asset('images/ta_logo_final.png', height: 150,),
+              Image.asset(
+                'images/ta_logo_final.png',
+                height: (heightSize / 10) * 1.6,
+              ),
               Row(
                 children: <Widget>[
-                  SizedBox(width: 10,),
-                  Text(
-                    'Report an abuse ',
-                    style: TextStyle(color: Colors.black54, fontSize: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8, left: 8),
+                    child: Text(
+                      'Report an abuse ',
+                      style: TextStyle(color: Colors.black54, fontSize: 20),
+                    ),
                   ),
                   Icon(Icons.error),
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(children: <Widget>[
-                SizedBox(width: 10,),
-                Text('Describe what you have seen, heard or experienced'),
-              ],),
-              SizedBox(
-                height: 20,
+              Padding(
+                padding: const EdgeInsets.only(top: 8, left: 8, bottom: 8),
+                child: Text(
+                  'Describe what you have seen, heard or experienced',
+                ),
               ),
               Form(
-
                 key: formKey,
                 child: Column(
-
                   children: <Widget>[
-
-                     Container(
-                       margin: EdgeInsets.all(8.0),
-                       child: TextFormField(
+                    Container(
+                      margin: EdgeInsets.all(8.0),
+                      child: TextFormField(
                         controller: descriptionController,
                         onSaved: (String value) {
                           setState(() {
@@ -334,34 +344,32 @@ class _AbuseState extends State<Abuse> {
                         style: TextStyle(color: Colors.black),
                         maxLines: 4,
                         decoration: InputDecoration(
-
                             border: OutlineInputBorder(),
-
                             labelStyle: TextStyle(color: Colors.black),
                             labelText: 'Description'),
+                      ),
                     ),
-                     ),
+                    SizedBox(
+                      height: (heightSize / 10) * 0.2,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: Text(
+                          'Do you have a video, image or audio to attach ? Upload here'),
+                    ),
 
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                        'Do you have a video, image or audio to attach ? Upload here'),
-                    SizedBox(
-                      height: 20,
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
 //                    SizedBox(width: 20),
-                        FlatButton (child: Image.asset(
-                          'images/file_upload.png',
-                          height: 60,
-                          width: 60,
-                        ),
+                        FlatButton(
+                          child: Image.asset(
+                            'images/file_upload.png',
+                            height: (heightSize / 10) * 0.8,
+                            width: 60,
+                          ),
                           onPressed: onFileUploadPressed,
-                    ),
-
+                        ),
 
 //                      SizedBox(
 //                        width: 20,
@@ -375,22 +383,20 @@ class _AbuseState extends State<Abuse> {
 //                      ))
                       ],
                     ),
-
                     fileEmpty != null
                         ? Text(
-                      fileEmpty,
-                      style: TextStyle(color: Colors.red),
-                    )
+                            fileEmpty,
+                            style: TextStyle(color: Colors.red),
+                          )
                         : Text(''),
-
                     fileName != null
                         ? Text(
-                      fileName,
-                      style: TextStyle(color: Colors.orangeAccent),
-                    )
+                            fileName,
+                            style: TextStyle(color: Colors.orangeAccent),
+                          )
                         : Text(''),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: EdgeInsets.all(4),
                       child: Material(
                         elevation: 4.0,
                         color: Colors.white,
@@ -398,35 +404,39 @@ class _AbuseState extends State<Abuse> {
                         child: MaterialButton(
                           onPressed: submitData,
                           minWidth: 200,
-                          height: 40,
+                          height: (heightSize / 10) * 0.3,
                           child: Text(
                             'SUBMIT',
-                            style: TextStyle(color: Colors.black, fontSize: 25),
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 25),
                           ),
                         ),
                       ),
                     ),
-
-
-
                   ],
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text('Powered by', style: TextStyle(fontSize: 10, color: Colors.black54),),
-                      Text('Abeyie Innovation Studios', style: TextStyle(fontSize: 15, color: Colors.black54),)
+                      Text(
+                        'Powered by',
+                        style: TextStyle(fontSize: 10, color: Colors.black54),
+                      ),
+                      Text(
+                        'Abeyie Innovation Studios',
+                        style: TextStyle(fontSize: 15, color: Colors.black54),
+                      )
                     ],
                   )
                 ],
               )
             ],
-
-
           ),
         ),
       ),

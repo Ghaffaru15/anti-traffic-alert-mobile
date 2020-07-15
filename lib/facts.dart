@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-//import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Fact extends StatelessWidget {
-//  _launchURL() async {
-//    const url = 'https://flutter.dev';
-//    if (await canLaunch(url)) {
-//      await launch(url);
-//    } else {
-//      throw 'Could not launch $url';
-//    }
-//  }
+
+  _launchURL() async {
+    print('hit');
+    const url = 'https://traffikalert.com/#education-section';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double heightSize = size.height;
+    double widthSize = size.width;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -37,22 +42,32 @@ class Fact extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            Image.asset('images/ta_logo_final.png'),
+            Image.asset('images/ta_logo_final.png', height: (heightSize / 10) * 2,),
             Center(child: Text('Know the facts', style: TextStyle(fontSize: 30),),),
             SizedBox(height: 10,),
             Container(
-              margin: EdgeInsets.only(right: 15, left: 15),
-              child: Column(children: <Widget>[
+              margin: EdgeInsets.only(left: 5, right: 5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+
                 Text('This is our education page'),
                 SizedBox(height: 3,),
-                Text("Don't be in the dark about the signs, myths and facts "),
+                Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Text("Don't be in the dark about the signs, myths and facts "
+                      "about domestic violence and modern slavery. ", style: TextStyle(),),
+                ),
                 SizedBox(height: 3,),
-                Text("about domestic violence and modern slavery")
               ],)
             ),
             SizedBox(height: 15,),
-            Center(child:
-            Text('HOW TO IDENTIFY A TRAFFICKING IN PERSONS CASE', ),),
+
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text('HOW TO IDENTIFY A TRAFFICKING IN PERSONS CASE',
+              style: TextStyle(),),
+            ),
     SizedBox(height: 5,),
             Center(child: Text('Potential Victim: '),),
 
@@ -74,25 +89,28 @@ class Fact extends StatelessWidget {
             SizedBox(height: 5,),
             Center(child: Text('§ Very little to no pay ', ),),
 
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Material(
-                elevation: 4.0,
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                child: MaterialButton(
-                  onPressed: () {
-//                    onPressed: _launchURL;
-                  },
-                  minWidth: 200,
-                  height: 40,
-                  child: Text(
-                    'LEARN MORE',
-                    style: TextStyle(color: Colors.black, fontSize: 25),
-                  ),
-                ),
-              ),
-            ),
+            Center(
+                child: FlatButton(
+                  onPressed: _launchURL,
+                  child: Text('LEARN MORE'),
+                )),
+//            Padding(
+//              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 15),
+//              child: Material(
+//                elevation: 4.0,
+//                color: Colors.white,
+//                borderRadius: BorderRadius.circular(15),
+//                child: MaterialButton(
+//                  onPressed: _launchURL,
+//                  minWidth: 200,
+//                  height: 40,
+//                  child: Text(
+//                    'LEARN MORE',
+//                    style: TextStyle(fontWeight: FontWeight.normal,fontSize: 25),
+//                  ),
+//                ),
+//              ),
+//            ),
           ],
         ),
       ),
