@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'drawer.dart';
 
 class First extends StatelessWidget {
 
@@ -18,11 +19,15 @@ class First extends StatelessWidget {
     double height = size.height;
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.orangeAccent,
+        ),
+        drawer: AppDrawer(),
         body: Container(
           color: Colors.white,
           child: ListView(
             children: <Widget>[
-              Image.asset('images/ta_logo_final.png', height:  (height /10) * 3.5  ),
+              Image.asset('images/ta_logo_final.png', height:  (height /10) * 3  ),
               Padding(
 
                 padding: EdgeInsets.symmetric(vertical: 16, horizontal: 15),
