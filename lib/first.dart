@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'drawer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class First extends StatelessWidget {
 
@@ -39,7 +40,7 @@ class First extends StatelessWidget {
                   child: MaterialButton(
 
                     onPressed: () {
-                      Navigator.pushNamed(context, '/abuse');
+                      Navigator.pushReplacementNamed(context, '/abuse');
                     },
                     minWidth: 200,
                     height: (height / 10) * 1.2,

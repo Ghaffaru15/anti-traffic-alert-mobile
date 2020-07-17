@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'drawer.dart';
 
 class Fact extends StatelessWidget {
 
@@ -19,26 +20,29 @@ class Fact extends StatelessWidget {
     double heightSize = size.height;
     double widthSize = size.width;
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
 
-          ),
+      home: Scaffold(
+        drawer: AppDrawer(),
+        appBar: AppBar(
+//          leading: IconButton(
+//            icon: Icon(Icons.arrow_back, color: Colors.white),
+//            onPressed: () => Navigator.of(context).pop(),
+//
+//          ),
+
           backgroundColor: Colors.orangeAccent,
           title: Text('Education'),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/about');
-              },
-              icon: Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-              ),
-            )
-          ],
+//          actions: <Widget>[
+//            IconButton(
+//              onPressed: () {
+//                Navigator.pushNamed(context, '/about');
+//              },
+//              icon: Icon(
+//                Icons.arrow_forward,
+//                color: Colors.white,
+//              ),
+//            )
+//          ],
         ),
         body: ListView(
           children: <Widget>[

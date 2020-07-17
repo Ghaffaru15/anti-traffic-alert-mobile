@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'dart:io';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-
+import 'drawer.dart';
 class Abuse extends StatefulWidget {
   @override
   _AbuseState createState() => _AbuseState();
@@ -277,24 +277,26 @@ class _AbuseState extends State<Abuse> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+//          leading: IconButton(
+//            icon: Icon(Icons.arrow_back, color: Colors.white),
+//            onPressed: () => Navigator.of(context).pop(),
+//          ),
+
           backgroundColor: Colors.orangeAccent,
           title: Text('Report Abuse'),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/fact');
-              },
-              icon: Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-              ),
-            )
-          ],
+//          actions: <Widget>[
+//            IconButton(
+//              onPressed: () {
+//                Navigator.pushNamed(context, '/fact');
+//              },
+//              icon: Icon(
+//                Icons.arrow_forward,
+//                color: Colors.white,
+//              ),
+//            )
+//          ],
         ),
+        drawer: AppDrawer(),
         backgroundColor: Colors.white,
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,

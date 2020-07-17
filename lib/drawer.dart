@@ -1,6 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'abuse.dart';
+import 'suspicious.dart';
+import 'facts.dart';
+import 'about.dart';
+import 'aboutus.dart';
 
 class AppDrawer extends StatelessWidget {
+
+  _launchURL() async {
+    print('hit');
+    const url = 'https://traffikalert.com/#contact-section';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -8,7 +26,56 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           _createHeader(),
-          _createDrawerItem(icon: Icons.contacts,text: 'Report an Abuse',),
+          _createDrawerItem(
+              icon: FontAwesomeIcons.exclamationCircle,
+              text: ' Report an Abuse',
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) => Abuse()));
+              }
+              ),
+          _createDrawerItem(
+            icon: FontAwesomeIcons.exclamationCircle,
+            text: ' Report a Suspicion',
+            onTap: () {
+              Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) => Suspicious()));
+            }
+          ),
+          _createDrawerItem(
+            icon: FontAwesomeIcons.shareAlt,
+            text: ' Share your story',
+            onTap: () {
+              _launchURL();
+            }
+          ),
+          Divider(
+            color: Colors.orangeAccent,
+          ),
+          _createDrawerItem(
+            icon: FontAwesomeIcons.book,
+            text: ' Know the facts',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Fact()));
+            }
+          ),
+          _createDrawerItem(
+            icon: FontAwesomeIcons.users,
+            text: ' Join the campaign',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => About()));
+            }
+          ),
+          Divider(
+            color: Colors.orangeAccent,
+          ),
+          _createDrawerItem(
+            icon: FontAwesomeIcons.info,
+            text: ' About Us',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AboutUs()));
+            }
+          ),
         ],
       ),
     );
@@ -21,8 +88,7 @@ Widget _createHeader() {
       padding: EdgeInsets.zero,
       decoration: BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.fill,
-              image:  AssetImage('images/ta_logo_final.png'))),
+              fit: BoxFit.fill, image: AssetImage('images/ta_logo_final.png'))),
       child: Stack(children: <Widget>[
         Positioned(
             bottom: 12.0,

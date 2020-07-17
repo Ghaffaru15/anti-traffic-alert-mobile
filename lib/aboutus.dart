@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'drawer.dart';
 
 _launchURL() async {
 
@@ -10,6 +11,7 @@ _launchURL() async {
     throw 'Could not launch $url';
   }
 }
+
 class AboutUs extends StatelessWidget {
 
   @override
@@ -17,12 +19,14 @@ class AboutUs extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double heightSize = size.height;
     return MaterialApp(
+
       home: Scaffold(
+        drawer: AppDrawer(),
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+//          leading: IconButton(
+//            icon: Icon(Icons.arrow_back, color: Colors.white),
+//            onPressed: () => Navigator.of(context).pop(),
+//          ),
           backgroundColor: Colors.orangeAccent,
         ),
         body: ListView(

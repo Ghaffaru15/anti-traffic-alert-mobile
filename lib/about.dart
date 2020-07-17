@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-//import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-//_launchURL(String url) {
-//  launch(url);
-//}
+import 'package:url_launcher/url_launcher.dart';
+import 'drawer.dart';
+
 _launchWebURL() async {
   print('hit');
   const url = 'https://abeyiestudios.com';
@@ -47,7 +45,7 @@ _launchIGURL() async {
 }
 _launchYouTubeURL() async {
   print('hit');
-  const url = 'https://youtube.com/abeyieis';
+  const url = 'https://www.youtube.com/channel/UCGmsn7RFlw6vc4vOZunrQJA';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
@@ -67,25 +65,27 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       home: Scaffold(
+        drawer: AppDrawer(),
         appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+//          leading: IconButton(
+//            icon: Icon(Icons.arrow_back, color: Colors.white),
+//            onPressed: () => Navigator.of(context).pop(),
+//          ),
           backgroundColor: Colors.orangeAccent,
           title: Text('Our Media'),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/aboutus');
-              },
-              icon: Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-              ),
-            )
-          ],
+//          actions: <Widget>[
+//            IconButton(
+//              onPressed: () {
+//                Navigator.pushNamed(context, '/aboutus');
+//              },
+//              icon: Icon(
+//                Icons.arrow_forward,
+//                color: Colors.white,
+//              ),
+//            )
+//          ],
         ),
         body: ListView(
           children: <Widget>[
@@ -134,7 +134,7 @@ class About extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Column(
+                Column (
                   children: <Widget>[
                     Text('Powered by', style: TextStyle(fontSize: 10, color: Colors.black54),),
                     Text('Abeyie Innovation Studios', style: TextStyle(fontSize: 15, color: Colors.black54),)
