@@ -34,6 +34,10 @@ class MyApp extends StatelessWidget {
         '/aboutus' : (context) => AboutUs(),
         '/report_sent': (context) => ReportSent(),
       },
+      onUnknownRoute: (RouteSettings settings) {
+        return MaterialPageRoute(
+            builder: (BuildContext context) => ReportSent());
+      },
     );
   }
 }

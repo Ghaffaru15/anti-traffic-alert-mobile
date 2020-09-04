@@ -6,7 +6,7 @@ import 'suspicious.dart';
 import 'facts.dart';
 import 'about.dart';
 import 'aboutus.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class AppDrawer extends StatelessWidget {
 
   _launchURL() async {
@@ -27,18 +27,20 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           _createHeader(),
           _createDrawerItem(
-              icon: FontAwesomeIcons.exclamationCircle,
+              icon: FontAwesomeIcons.infoCircle,
               text: ' Report an Abuse',
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (BuildContext context) => Abuse()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (BuildContext context) => new Abuse()));
+
+//                Navigator.pushReplacementNamed(context, '/abuse');
               }
               ),
           _createDrawerItem(
-            icon: FontAwesomeIcons.exclamationCircle,
+            icon: FontAwesomeIcons.infoCircle,
             text: ' Report a Suspicion',
             onTap: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (BuildContext context) => Suspicious()));
             }
           ),
@@ -56,14 +58,14 @@ class AppDrawer extends StatelessWidget {
             icon: FontAwesomeIcons.book,
             text: ' Know the facts',
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Fact()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Fact()));
             }
           ),
           _createDrawerItem(
             icon: FontAwesomeIcons.users,
             text: ' Join the campaign',
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => About()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => About()));
             }
           ),
           Divider(
@@ -73,7 +75,7 @@ class AppDrawer extends StatelessWidget {
             icon: FontAwesomeIcons.info,
             text: ' About Us',
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AboutUs()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => AboutUs()));
             }
           ),
         ],
@@ -87,7 +89,9 @@ Widget _createHeader() {
       margin: EdgeInsets.zero,
       padding: EdgeInsets.zero,
       decoration: BoxDecoration(
+
           image: DecorationImage(
+
               fit: BoxFit.fill, image: AssetImage('images/ta_logo_final.png'))),
       child: Stack(children: <Widget>[
         Positioned(

@@ -7,8 +7,7 @@ class ReportSent extends StatelessWidget {
     double heightSize = size.height;
     double widthSize = size.width;
 
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
 
         appBar: AppBar(
           backgroundColor: Colors.orangeAccent,
@@ -20,8 +19,6 @@ class ReportSent extends StatelessWidget {
         body: ListView(
           children: <Widget>[
             Image.asset('images/ta_logo_final.png', height: (heightSize / 10) * 3,),
-
-
             Center(
 
               child: Text('Report Sent', style: TextStyle(fontSize: 25),),
@@ -30,24 +27,24 @@ class ReportSent extends StatelessWidget {
             Center(child: Text('That took a lot of courage')),
             Icon(Icons.check, color: Colors.green, size: 50,),
             SizedBox(height: (heightSize / 10) * 0.5,),
-            Center(child: Text('To give more details', style: TextStyle(fontSize: 20),)),
-            SizedBox(height: (heightSize / 10) * 0.2,),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-              child: Material(
-                elevation: 4.0,
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                child: MaterialButton(
-                  minWidth: (widthSize / 5),
-                  height: 35,
-                  child: Text(
-                    'Fill the form',
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  ),
-                ),
-              ),
-            ),
+//            Center(child: Text('To give more details', style: TextStyle(fontSize: 20),)),
+//            SizedBox(height: (heightSize / 10) * 0.2,),
+//            Padding(
+//              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+//              child: Material(
+//                elevation: 4.0,
+//                color: Colors.white,
+//                borderRadius: BorderRadius.circular(15),
+//                child: MaterialButton(
+//                  minWidth: (widthSize / 5),
+//                  height: 35,
+//                  child: Text(
+//                    'Fill the form',
+//                    style: TextStyle(color: Colors.black, fontSize: 20),
+//                  ),
+//                ),
+//              ),
+//            ),
             SizedBox(height: (heightSize / 10) * 0.8,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +69,7 @@ class ReportSent extends StatelessWidget {
         ),
 
 
-      ),
-    );
+      );
+//    );
   }
 }

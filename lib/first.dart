@@ -28,7 +28,7 @@ class First extends StatelessWidget {
           color: Colors.white,
           child: ListView(
             children: <Widget>[
-              Image.asset('images/ta_logo_final.png', height:  (height /10) * 3  ),
+              Image.asset('images/ta_logo_final.png', height:  (height /10) * 2.5  ),
               Padding(
 
                 padding: EdgeInsets.symmetric(vertical: 16, horizontal: 15),

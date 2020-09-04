@@ -5,6 +5,8 @@ import 'package:mime_type/mime_type.dart';
 import 'dart:io';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'drawer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'report_sent.dart';
 class Abuse extends StatefulWidget {
   @override
   _AbuseState createState() => _AbuseState();
@@ -162,7 +164,8 @@ class _AbuseState extends State<Abuse> {
     } else {
       print('No file uploaded');
       setState(() {
-        fileEmpty = 'Please upload an image/video/audio';
+//        fileEmpty = 'Please upload an image/video/audio';
+        fileEmpty = '';
         fileName = '';
       });
     }
@@ -192,7 +195,7 @@ class _AbuseState extends State<Abuse> {
     } else {
       print('No file uploaded');
       setState(() {
-        fileEmpty = 'Please upload an image/video';
+//        fileEmpty = 'Please upload an image/video';
         fileName = '';
       });
     }
@@ -217,7 +220,7 @@ class _AbuseState extends State<Abuse> {
       print('Failed Validation');
       return;
     }
-    if (validateFile(fileToSubmit) != null) {
+//    if (validateFile(fileToSubmit) != null) {
       formKey.currentState.save();
       setState(() {
         showSpinner = true;
@@ -227,10 +230,15 @@ class _AbuseState extends State<Abuse> {
 
       final request = http.MultipartRequest(
           'POST', Uri.parse('https://traffikalert.com/api/report'));
-      final finalFile =
-          await http.MultipartFile.fromPath('media_url', fileToSubmit.path);
+      if (fileToSubmit != null) {
 
-      request.files.add(finalFile);
+        final finalFile =
+        await http.MultipartFile.fromPath('media_url', fileToSubmit.path);
+
+        request.files.add(finalFile);
+
+      }
+
 
       request.fields.addAll({'description': description});
 
@@ -240,15 +248,19 @@ class _AbuseState extends State<Abuse> {
       if (response.statusCode == 200) {
         setState(() {
           showSpinner = false;
-        });
-//        showUploadSuccess();
-        Navigator.pushNamed(context, '/report_sent');
-        descriptionController.clear();
-        setState(() {
           description = '';
           fileToSubmit = null;
           fileName = '';
         });
+//        showUploadSuccess();
+        descriptionController.clear();
+//        Navigator.pushNamed(context, '/report_sent');
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => new ReportSent()));
+
+
+//                Navigator.pushReplacementNamed(context, '/abuse');
+//      }
       } else {
         print(response.statusCode);
         showSpinner = false;
@@ -265,8 +277,7 @@ class _AbuseState extends State<Abuse> {
           fileName = '';
         });
       }
-    }
-    ;
+//    };
   }
 
   @override
@@ -316,8 +327,10 @@ class _AbuseState extends State<Abuse> {
                       style: TextStyle(color: Colors.black54, fontSize: 20),
                     ),
                   ),
-                  Icon(Icons.error),
+//                  Icon(Icons.error),
+                FaIcon(FontAwesomeIcons.infoCircle)
                 ],
+
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8, left: 8, bottom: 8),
@@ -346,9 +359,12 @@ class _AbuseState extends State<Abuse> {
                         style: TextStyle(color: Colors.black),
                         maxLines: 4,
                         decoration: InputDecoration(
+                          hintText: 'I witnessed a girl of about 7 years pushed forcefully into a red Honda civic car in the outskirts of Oda. Type here...',
                             border: OutlineInputBorder(),
                             labelStyle: TextStyle(color: Colors.black),
-                            labelText: 'Description'),
+//                            labelText: 'Description',
+                        ),
+
                       ),
                     ),
                     SizedBox(

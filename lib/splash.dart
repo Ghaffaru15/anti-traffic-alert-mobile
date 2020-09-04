@@ -42,7 +42,7 @@ class StartState extends State<Splash> {
   }
 
   startTimer() async {
-    var duration = Duration(seconds: 10);
+    var duration = Duration(seconds: 5);
     return new Timer(duration, route);
   }
 

@@ -6,7 +6,9 @@ import 'package:mime_type/mime_type.dart';
 import 'dart:io';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'drawer.dart';
+import 'report_sent.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class Suspicious extends StatefulWidget {
   @override
   _SuspiciousState createState() => _SuspiciousState();
@@ -156,7 +158,7 @@ class _SuspiciousState extends State<Suspicious> {
     } else {
       print('No file uploaded');
       setState(() {
-        fileEmpty = 'Please upload an image/video/audio';
+//        fileEmpty = 'Please upload an image/video/audio';
         fileName = '';
       });
     }
@@ -186,7 +188,7 @@ class _SuspiciousState extends State<Suspicious> {
     } else {
       print('No file uploaded');
       setState(() {
-        fileEmpty = 'Please upload an image/video';
+//        fileEmpty = 'Please upload an image/video';
         fileName = '';
       });
     }
@@ -209,18 +211,23 @@ class _SuspiciousState extends State<Suspicious> {
       print('Failed Validation');
       return;
     }
-    if (validateFile(fileToSubmit) != null) {
+//    if (validateFile(fileToSubmit) != null) {
       formKey.currentState.save();
       setState(() {
         showSpinner = true;
       });
+
+
       final request = http.MultipartRequest(
-          'POST', Uri.parse('http://10.0.2.2:8000/api/suspicion'));
+          'POST', Uri.parse('https://traffikalert.com/api/suspicion'));
 
-      final finalFile =
-      await http.MultipartFile.fromPath('media_url', fileToSubmit.path);
+      if (fileToSubmit != null) {
+        final finalFile =
+        await http.MultipartFile.fromPath('media_url', fileToSubmit.path);
 
-      request.files.add(finalFile);
+        request.files.add(finalFile);
+      }
+
 
       request.fields.addAll({
         'description': description
@@ -234,13 +241,15 @@ class _SuspiciousState extends State<Suspicious> {
           showSpinner = false;
         });
 //        showUploadSuccess();
-        Navigator.pushNamed(context, '/report_sent');
         descriptionController.clear();
         setState(() {
           description = '';
           fileToSubmit = null;
           fileName = '';
         });
+//        Navigator.pushNamed(context, '/report_sent');
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => new ReportSent()));
       } else {
         print(response.statusCode);
         print(response.body);
@@ -259,8 +268,7 @@ class _SuspiciousState extends State<Suspicious> {
           fileName = '';
         });
       }
-    }
-    ;
+//    };
   }
 
 
@@ -304,11 +312,11 @@ class _SuspiciousState extends State<Suspicious> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, left: 8),
                     child: Text(
-                      'Report a suspicious behavior ',
+                      'Report a suspicious behaviour ',
                       style: TextStyle(color: Colors.black54, fontSize: 20),
                     ),
                   ),
-                  Icon(Icons.error),
+                  FaIcon(FontAwesomeIcons.infoCircle)
                 ],
               ),
 
@@ -342,11 +350,12 @@ class _SuspiciousState extends State<Suspicious> {
                         style: TextStyle(color: Colors.black),
                         maxLines: 4,
                         decoration: InputDecoration(
-
+                            hintText: 'I tried to chat to a young girl in my neighbourhood in Madina. She was reluctant to speak with me, and bruises on her face. Type here...',
                             border: OutlineInputBorder(),
 
                             labelStyle: TextStyle(color: Colors.black),
-                            labelText: 'Description'),
+//                            labelText: 'Description'
+                        ),
                       ),
                     ),
 
